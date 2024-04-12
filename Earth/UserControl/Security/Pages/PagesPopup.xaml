@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Earth.PagesPopup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Earth"
+             xmlns:wpf = "clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+            xmlns:system = "clr-namespace:System;assembly=mscorlib"
+            xmlns:materialDesign = "http://materialdesigninxaml.net/winfx/xaml/themes"
+            TextElement.Foreground = "{DynamicResource MaterialDesignBody}"
+            Background="Transparent"
+            Loaded = "UserControl_Loaded"
+             mc:Ignorable = "d" Width="400" Height="350"
+            d:DesignHeight = "300" d:DesignWidth = "300">
+    <DockPanel>
+        <materialDesign:ColorZone  Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid"  DockPanel.Dock="Top" >
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Text="PAGES" x:Name="txtPopupTitle"/>
+        </materialDesign:ColorZone>
+        <Border CornerRadius="0, 0, 8, 8"  BorderBrush="DarkBlue" BorderThickness="2" Background="White">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBox wpf:HintAssist.Hint="Name" Style="{ DynamicResource MaterialDesignFloatingHintTextBox}"  Margin="0 6 0 0" FontSize="16" Grid.Row="0" x:Name="txtName"/>
+                <TextBox wpf:HintAssist.Hint="Description" Style="{ DynamicResource MaterialDesignFloatingHintTextBox}"  Margin="0 6 0 0" FontSize="16" Grid.Row="1" x:Name="txtDesc"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0 16 0 0">
+
+                    <ToggleButton  Style="{ StaticResource MaterialDesignSwitchToggleButton}" x:Name="IsValidCheckBox" Checked="IsValidCheckBox_Checked" Unchecked="IsValidCheckBox_Unchecked"  IsChecked="False" />
+                    <Label Content="Valid" Margin="10, 5, 0, 0" FontSize="14" FontWeight="Bold" Height="44" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0 16 0 0">
+                    <Button IsDefault="True"  Style="{ DynamicResource MaterialDesignFlatButton}" x:Name="btnAdd" Click="btnAdd_Click" IsEnabled="False">ADD</Button>
+                    
+                    <Button  Style="{ DynamicResource MaterialDesignFlatButton}" x:Name="btnEdit" Click="btnEdit_Click" >EDIT</Button>
+                    
+                    <Button  Margin="0 0 0 0" Style="{ DynamicResource MaterialDesignFlatButton}" x:Name="btnCancel" Click="btnCancel_Click" >CANCEL</Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>

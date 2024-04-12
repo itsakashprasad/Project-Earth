@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Earth.CityPop"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Earth"
+             xmlns:wpf = "clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:system = "clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign = "http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground = "{DynamicResource MaterialDesignBody}"
+             Background="Transparent"
+             Loaded = "UserControl_Loaded"
+             mc:Ignorable = "d" Width="400" Height="500"
+             d:DesignHeight = "400" d:DesignWidth = "400">
+    <DockPanel>
+        <materialDesign:ColorZone  Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid"  DockPanel.Dock="Top"  >
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Text="City" x:Name="txtHeaderName"/>
+        </materialDesign:ColorZone>
+        <Border CornerRadius="0, 0, 8, 8"  BorderBrush="DarkBlue" BorderThickness="2" Background="White">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cmbCountry"  wpf:HintAssist.Hint="COUNTRY" Margin="0 6 0 0" FontSize="16" Grid.Row="0"  SelectionChanged="cmbCountry_SelectionChanged"/>
+                <ComboBox x:Name="cmbState"  wpf:HintAssist.Hint="STATE" Margin="0 6 0 0" FontSize="16" Grid.Row="1" />
+                <TextBox wpf:HintAssist.Hint="Name" Style="{ DynamicResource MaterialDesignFloatingHintTextBox}"  Margin="0 6 0 0" FontSize="16" Grid.Row="2" x:Name="txtName"/>
+                <TextBox wpf:HintAssist.Hint="City Code" Style="{ DynamicResource MaterialDesignFloatingHintTextBox}"  Margin="0 6 0 0" FontSize="16" Grid.Row="3" x:Name="txtCityCode"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0 16 0 0">
+                    <ToggleButton  Style="{ StaticResource MaterialDesignSwitchToggleButton}"  x:Name="txtIsValid" />
+                    <Label Content="Valid" Margin="10, 5, 0, 0" FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="0 16 0 0">
+                    <Button IsDefault="True"  Style="{ DynamicResource MaterialDesignFlatButton}" x:Name="btnAdd" Click="btnAdd_Click">ADD</Button>
+                    <Button  Margin="8 0 0 0" Style="{ DynamicResource MaterialDesignFlatButton}" x:Name="btnCancel" Click="btnCancel_Click" >CANCEL</Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>

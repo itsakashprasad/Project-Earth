@@ -1,0 +1,165 @@
+﻿<Window x:Class="Earth.CityPopup"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Earth"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        FontSize="20"
+        Title="Popup" Height="470" Width="430"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        BorderBrush="BlueViolet"
+        BorderThickness="2"
+        
+        >
+    <!--<Border BorderBrush="SlateBlue" BorderThickness="2" Background="AliceBlue" Padding="5" CornerRadius="60">-->
+    <!--TextElement.Foreground="{DynamicResource MaterialDesignBody}"-->
+
+
+    <materialDesign:Card
+        UniformCornerRadius="0"
+        Width="auto"
+        Padding="0"
+        Background="#fafafa"
+        BorderBrush="BlueViolet"
+        BorderThickness="5"
+        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                x:Name="txtPopupTitle"
+                Grid.Row="0"
+                Margin="16,16,16,4"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Text="Title Here"
+                HorizontalAlignment="Center" Foreground="Black"/>
+            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" Background="Black" />
+            <TextBox
+                HorizontalAlignment="Center"
+                Width="322"
+                x:Name="txtFirstInputBox"
+                Foreground="Black"
+                BorderBrush="Black"
+                Grid.Row="2"
+                VerticalAlignment="Top"               
+                FontSize="16"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,136,0,0"  />
+
+            <Grid Grid.Row="2"
+                Width="auto" Margin="0,200,0,-109" Grid.RowSpan="2">
+                <!--ADD BUTTON-->
+                <Button x:Name="BtnAdd" Click="BtnAdd_Click" Height="50" HorizontalAlignment="Center" Width="313"
+                 materialDesign:ButtonAssist.CornerRadius="25"
+                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                 ToolTip="Add Country" Margin="28,10,34,81">
+                    <TextBlock Text="Add" FontSize="20" />
+                </Button>
+                <!--DELETE BUTTON-->
+                <Button x:Name="BtnDelete" Click="BtnDelete_Click" Height="50" HorizontalAlignment="Center" Width="313"
+                 materialDesign:ButtonAssist.CornerRadius="25"
+                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                 ToolTip="Delete Country" Margin="28,10,34,81">
+                    <TextBlock Text="Delete" FontSize="20" />
+                </Button>
+                <!--SAVE BUTTON-->
+                <Button x:Name="BtnSave" Click="BtnSave_Click" Height="50" HorizontalAlignment="Center" Width="313"
+                 materialDesign:ButtonAssist.CornerRadius="25"
+                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                 ToolTip="Edit Country" Margin="28,10,34,81">
+                    <TextBlock Text="Save" FontSize="20" />
+                </Button>
+                <!--CANCEL BUTTON-->
+
+                <Button x:Name="BtnCancel" Click="BtnCancel_Click" Height="50" HorizontalAlignment="Center" Width="313"
+                    materialDesign:ButtonAssist.CornerRadius="25"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    ToolTip="Close This Window" Margin="51,96,57,10">
+                    <TextBlock Text="Cancel" FontSize="20" />
+                </Button>
+
+
+            </Grid>
+
+            <CheckBox 
+                    Grid.Row="2" Width="auto" Margin="52,194,204,85"
+                    x:Name="IsValidCheckBox" Checked="IsValidCheckBox_Checked" Unchecked="IsValidCheckBox_Unchecked" Content="Is Valid"
+                    materialDesign:CheckBoxAssist.CheckBoxSize="40" Foreground="Black"
+                    FontSize="16"
+                    IsChecked="True" RenderTransformOrigin="0.526,-0.609" />
+
+
+            <Button Width="60" HorizontalAlignment="Right" Background="Transparent" Height="Auto" BorderThickness="0" Click="CloseButton_Click" >
+                <materialDesign:PackIcon Kind="Close" Height="30" Width="auto" Foreground="Black"/>
+            </Button>
+            <ComboBox x:Name="CountryDrop" Margin="51,0,52,0" FontSize="12" VerticalAlignment="Top" Grid.Row="2" Width="323"
+                materialDesign:HintAssist.Hint="Select Country" materialDesign:TextFieldAssist.HasClearButton="True"
+                ItemsSource="{Binding CountryList}" Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                DisplayMemberPath="Name" SelectedValuePath="Guid"
+                SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" Foreground="black" />
+            <ComboBox x:Name="StateDrop" Margin="51,68,52,0" FontSize="12" VerticalAlignment="Top" Grid.Row="2" Width="323"
+                materialDesign:HintAssist.Hint="Select State" materialDesign:TextFieldAssist.HasClearButton="True"
+                ItemsSource="{Binding StateList}" Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                DisplayMemberPath="Name" SelectedValuePath="Guid"
+                SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" Foreground="black" RenderTransformOrigin="0.515,0.314" />
+
+
+        </Grid>
+    </materialDesign:Card>
+    <!--<Border/>-->
+
+    <!--<Grid>
+
+        <TextBlock x:Name="txtPopupTitle" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Text="TITLE" FontSize="30" />
+
+        <TextBlock x:Name="txtName" Text="CountryName :" HorizontalAlignment="Left" Height="44" Margin="10,57,0,141"  />
+        <TextBlock x:Name="txtCode" Text="CountryCode  :" HorizontalAlignment="Left"  Height="44" Margin="11,106,0,92"  />
+
+        <TextBox x:Name="txtAddCountryNameInput" Text=" " HorizontalAlignment="Left"  Margin="148,50,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="270" />
+        <TextBox x:Name="txtAddCountryCodeInput" Text=" " HorizontalAlignment="Left"  Margin="148,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="270" />
+        -->
+    <!--<TextBox x:Name="txtAddCountryCodeInput"  HorizontalAlignment="Left" Height="51" Margin="148,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" />-->
+
+    <!--ADD BUTTON-->
+    <!--
+        <Button x:Name="BtnAdd" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100" Margin="151,0,191,24" Content="ADD" Height="48" Click="BtnAdd_Click"/>
+
+        -->
+    <!--DELETE BUTTON-->
+    <!--
+        <Button x:Name="BtnDelete" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100" Margin="151,0,191,24" Content="DELETE" Height="48" Click="BtnDelete_Click"/>
+        -->
+    <!--SAVE BUTTON-->
+    <!--
+        <Button x:Name="BtnSave" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100" Margin="151,0,191,24" Content="SAVE" Height="48" Click="BtnSave_Click"/>
+
+        -->
+    <!--CANCEL BUTTON-->
+    <!--
+        <Button x:Name="BtnCancel" Click="BtnCancel_Click" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="106" Margin="287,0,49,24" Content="CANCEL" Height="48" />
+
+
+        <CheckBox x:Name="IsValidCheckBox" Checked="IsValidCheckBox_Checked" Content="Is Valid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="48" Margin="27,136,0,58" />
+
+
+    </Grid>-->
+    <!--</Border>-->
+</Window>

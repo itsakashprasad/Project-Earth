@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="PrintingSetup.UserControls.Security.Users.Users" 
+xmlns ="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+xmlns:local = "clr-namespace:PrintingSetup.UserControls.Security.Users"
+xmlns:wpf = "clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+xmlns:system = "clr-namespace:System;assembly=mscorlib"
+xmlns:materialDesign = "http://materialdesigninxaml.net/winfx/xaml/themes"
+TextElement.Foreground = "{DynamicResource MaterialDesignBody}"
+Background="Transparent"
+Loaded = "UserControl_Loaded"
+ mc:Ignorable = "d"
+d:DesignHeight = "300" d:DesignWidth = "300">
+    <DockPanel Margin ="30, 30, 30, 30">
+        <materialDesign:ColorZone Margin="0, 0, 0, 2" Padding="5" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid"  DockPanel.Dock="Top" BorderBrush="DarkBlue" BorderThickness="2">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Width="20" Height="20">
+                        <materialDesign:PackIcon  Kind="GlobeModel" Foreground="{ Binding ElementName = mnuRoles, Path = BorderBrush}" />
+                    </Viewbox>
+                    <TextBlock x:Name="PageHeader" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5 0 0 0">USERS</TextBlock>
+                </StackPanel>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Background="LightSkyBlue" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 80 0" x:Name="btnAddNew"  Click="btnAddNew_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Width="20" Height="20">
+                            <materialDesign:PackIcon  Kind="Plus"/>
+                        </Viewbox>
+                        <TextBlock  Margin="8 0 0 0"> ADD</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Style="{ StaticResource MaterialDesignRaisedButton}" Background="LightSkyBlue" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="btnCancel"  Click="btnCancel_Click">Cancel</Button>
+            </Grid>
+        </materialDesign:ColorZone>
+        <Border CornerRadius="0, 0, 8, 8"  BorderBrush="DarkBlue" BorderThickness="2" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Grid.Column="1" Width="250" Margin="10 0 0 0" x:Name="txtSearch" materialDesign:HintAssist.Hint="Type here to Search within the List" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left" TextChanged="txtSearch_TextChanged" />
+                    <Button Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0" x:Name="btnSearch" Click="btnSearch_Click" >
+                        <Viewbox Width="20" Height="20">
+                            <materialDesign:PackIcon  Kind="Magnify"/>
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+                <DataGrid Grid.Row="1" x:Name="dataGrid"  IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" AutoGenerateColumns="False"  Margin="10 10 10 10" CanUserSortColumns="True"  CanUserAddRows="False" MouseDoubleClick="dataGrid_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding RowIndex}" IsReadOnly="True" Header="#" />
+                        <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Header="Name" />
+                        <DataGridTextColumn Binding="{Binding Email}" IsReadOnly="True" Header="Email" />
+                        <DataGridTextColumn Binding="{Binding Phone}" IsReadOnly="True" Header="Phone" />
+                        <DataGridTemplateColumn Header="ImagePath" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path = ImagePath}" Height="50"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding AllowAccessFrom,StringFormat={}{0:dd-MM-yyyy hh:mm:ss tt}}" IsReadOnly="True" Header="AllowAccessFrom" />
+                        <DataGridTextColumn Binding="{Binding AllowAccessTill,StringFormat={}{0:dd-MM-yyyy hh:mm:ss tt}}" IsReadOnly="True" Header="AllowAccessTill" />
+                        <DataGridTextColumn Binding="{Binding ActivationDate,StringFormat={}{0:dd-MM-yyyy hh:mm:ss tt}}" IsReadOnly="True" Header="ActivationDate" />
+                        <DataGridTemplateColumn Header="VIEW" Width="5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnView" Style="{ DynamicResource MaterialDesignToolForegroundButton}" ToolTip="Double click to view record"  HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon  Kind="Eye" Height="25" Width="25" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="EDIT" Width="5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnEdit" Style="{ DynamicResource MaterialDesignToolForegroundButton}" ToolTip="Double click to edit record"  HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon  Kind="Pencil" Height="25" Width="25" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="DELETE" Width="5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnDelete" Style="{ DynamicResource MaterialDesignToolForegroundButton}" ToolTip="Double click to edit record"  HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon  Kind="Delete" Height="25" Width="25" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl> 

@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Earth.Roles" 
+xmlns ="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+xmlns:local = "clr-namespace:Earth"
+xmlns:wpf = "clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:system = "clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign = "http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground = "{DynamicResource MaterialDesignBody}"
+             Background="Transparent"
+             Loaded = "UserControl_Loaded"
+             mc:Ignorable = "d"
+             d:DesignHeight = "800" d:DesignWidth = "1000">
+
+    <DockPanel Margin ="30, 30, 30, 30">
+        <materialDesign:ColorZone Margin="0, 0, 0, 2" Padding="5" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid"  DockPanel.Dock="Top" BorderBrush="DarkBlue" BorderThickness="2">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Width="20" Height="20">
+                        <materialDesign:PackIcon  Kind="GlobeModel" Foreground="{ Binding ElementName = mnuRoles, Path = BorderBrush}" />
+                    </Viewbox>
+                    <TextBlock x:Name="PageHeader" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5 0 0 0">Roles</TextBlock>
+                </StackPanel>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Background="LightSkyBlue" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 80 0" x:Name="btnAddNew"  Click="btnAddNew_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Width="20" Height="20">
+                            <materialDesign:PackIcon  Kind="Plus"/>
+                        </Viewbox>
+                        <TextBlock  Margin="8 0 0 0"> ADD</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Style="{ StaticResource MaterialDesignRaisedButton}" Background="LightSkyBlue" VerticalAlignment="Top" HorizontalAlignment="Right" x:Name="btnCancel"  Click="btnCancel_Click">Cancel</Button>
+            </Grid>
+        </materialDesign:ColorZone>
+        <Border CornerRadius="0, 0, 8, 8"  BorderBrush="DarkBlue" BorderThickness="2" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--<StackPanel Orientation="Horizontal">
+                    <TextBox Grid.Column="1" Width="250" Margin="10 0 0 0" x:Name="txtSearch" materialDesign:HintAssist.Hint="Type here to Search within the List" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left" TextChanged="txtSearch_TextChanged" />
+                    <Button Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0" x:Name="btnSearch" Click="btnSearch_Click" >
+                        <Viewbox Width="20" Height="20">
+                            <materialDesign:PackIcon  Kind="Magnify"/>
+                        </Viewbox>
+                    </Button>
+                </StackPanel>-->
+
+                <DataGrid Grid.Row="1" x:Name="dtgDataGrid"  IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" AutoGenerateColumns="False" Margin="2 2 2 2" CanUserSortColumns="True"  CanUserAddRows="False" >
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Binding="{Binding Guid}" IsReadOnly="True" Header="Guid" Visibility="Hidden" />
+                        <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Header="Name" Width="20*"/>
+                        <DataGridTextColumn Binding="{Binding Description}" IsReadOnly="True" Header="Description" Width="25*"/>
+                        <DataGridTextColumn Binding="{Binding RoleType}" IsReadOnly="True" Header="RoleType" Width="25*"/>
+                        <DataGridTextColumn Binding="{Binding IsValid}" IsReadOnly="True" Header="IsValid" Width="20*"/>
+
+                        <DataGridTemplateColumn Header="Option" Width="5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PopupBox IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" StaysOpen="True" >
+
+                                            <StackPanel Orientation="Horizontal" Background="Transparent" VerticalAlignment="Center" Margin="0 -18 0 -18">
+
+                                                <Button  BorderThickness="0" Height="auto"  Click="ViewButton_Click" Width="auto" ToolTip="View Details">
+                                                    <materialDesign:PackIcon Foreground="black" Height="25" Width="25" Kind="EyeOutline"  />
+                                                </Button>
+
+                                                <Button Background="Transparent" BorderThickness="0" Height="auto" ToolTip="Edit Details"
+                                     Click="EditButton_Click" Width="auto">
+                                                    <materialDesign:PackIcon Foreground="black" Height="25" Width="25" Kind="PencilOutline" />
+                                                </Button>
+
+                                                <Button Background="Transparent" BorderThickness="0" Height="auto" ToolTip="Delete Details"
+                                     Click="DeleteButton_Click" Width="auto">
+                                                    <materialDesign:PackIcon Foreground="black" Height="25" Width="25" Kind="DeleteCircle" />
+                                                </Button>
+
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>
